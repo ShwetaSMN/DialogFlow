@@ -5,10 +5,12 @@ import "./app.css";
 export default function App(){
 
 const [message, updateMessage] = useState('Loading!!!');
+const [list, updateList] = useState([]);
 
 useEffect(()=>{
     axios.get('http://localhost:3001').then((res)=>{
-        updateMessage(res.data);
+        updateMessage("success");
+        updateList(res.data);
     }).catch(err=>{
         updateMessage('Failed');
     });
@@ -17,5 +19,10 @@ useEffect(()=>{
     return <div>
         <h1>Hello </h1>
         <div>{message}</div>
+        {list.map((intent, index) => (
+        <div className="intent" key={index}>
+          {intent.displayName}
+        </div>
+      ))}
     </div>;
 }
